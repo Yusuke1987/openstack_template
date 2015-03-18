@@ -25,21 +25,21 @@ import sys
 from oslo_config import cfg
 from oslo_log import log as logging
 
-from nova import config
-from nova import objects
-from nova.openstack.common.report import guru_meditation_report as gmr
-from nova import service
-from nova import utils
-from nova import version
+from openapp import config
+from openapp import objects
+from openapp.openstack.common.report import guru_meditation_report as gmr
+from openapp import service
+from openapp import utils
+from openapp import version
 
 CONF = cfg.CONF
-CONF.import_opt('enabled_apis', 'nova.service')
-CONF.import_opt('enabled_ssl_apis', 'nova.service')
+CONF.import_opt('enabled_apis', 'openapp.service')
+CONF.import_opt('enabled_ssl_apis', 'openapp.service')
 
 
 def main():
     config.parse_args(sys.argv)
-    logging.setup(CONF, "nova")
+    logging.setup(CONF, "openapp")
     utils.monkey_patch()
     objects.register_all()
 

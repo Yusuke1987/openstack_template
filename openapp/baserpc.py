@@ -22,7 +22,7 @@ from oslo_config import cfg
 import oslo_messaging as messaging
 from oslo_serialization import jsonutils
 
-from nova import rpc
+from openapp import rpc
 
 
 CONF = cfg.CONF

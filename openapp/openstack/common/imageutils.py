@@ -23,7 +23,7 @@ import re
 
 from oslo_utils import strutils
 
-from nova.openstack.common._i18n import _
+from openapp.openstack.common._i18n import _
 
 
 class QemuImgInfo(object):

@@ -21,12 +21,12 @@ from oslo_config import cfg
 from oslo_log import log as logging
 from oslo_utils import timeutils
 
-from nova import conductor
-from nova import context
-from nova.i18n import _, _LE
-from nova.openstack.common import memorycache
-from nova.servicegroup import api
-from nova.servicegroup.drivers import base
+from openapp import conductor
+from openapp import context
+from openapp.i18n import _, _LE
+from openapp.openstack.common import memorycache
+from openapp.servicegroup import api
+from openapp.servicegroup.drivers import base
 
 
 CONF = cfg.CONF

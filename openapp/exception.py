@@ -30,8 +30,8 @@ from oslo_log import log as logging
 from oslo_utils import excutils
 import webob.exc
 
-from nova.i18n import _, _LE
-from nova import safe_utils
+from openapp.i18n import _, _LE
+from openapp import safe_utils
 
 LOG = logging.getLogger(__name__)
 

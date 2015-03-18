@@ -18,11 +18,11 @@ from oslo_log import log as logging
 from oslo_utils import timeutils
 import six
 
-from nova import conductor
-from nova import context
-from nova.i18n import _, _LE
-from nova.servicegroup import api
-from nova.servicegroup.drivers import base
+from openapp import conductor
+from openapp import context
+from openapp.i18n import _, _LE
+from openapp.servicegroup import api
+from openapp.servicegroup.drivers import base
 
 
 CONF = cfg.CONF

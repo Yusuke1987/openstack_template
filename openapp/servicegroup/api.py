@@ -20,7 +20,7 @@ from oslo_config import cfg
 from oslo_log import log as logging
 from oslo_utils import importutils
 
-from nova.i18n import _, _LW
+from openapp.i18n import _, _LW
 
 LOG = logging.getLogger(__name__)
 

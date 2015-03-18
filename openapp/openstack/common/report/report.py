@@ -19,7 +19,7 @@ All reports take the form of a report class containing various report
 sections.
 """
 
-from nova.openstack.common.report.views.text import header as header_views
+from openapp.openstack.common.report.views.text import header as header_views
 
 
 class BasicReport(object):

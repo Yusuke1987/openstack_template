@@ -101,8 +101,8 @@ import six
 import six.moves.urllib.parse as urlparse
 import six.moves.urllib.request as urlrequest
 
-from nova.openstack.common import fileutils
-from nova.openstack.common._i18n import _, _LE
+from openapp.openstack.common import fileutils
+from openapp.openstack.common._i18n import _, _LE
 
 
 policy_opts = [

@@ -19,6 +19,6 @@ The membership service for Nova. Different implementations can be plugged
 according to the Nova configuration.
 """
 
-from nova.servicegroup import api
+from openapp.servicegroup import api
 
 API = api.API

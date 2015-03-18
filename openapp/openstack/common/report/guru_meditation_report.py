@@ -18,7 +18,7 @@ This module defines the actual OpenStack Guru Meditation
 Report class.
 
 This can be used in the OpenStack command definition files.
-For example, in a nova command module (under nova/cmd):
+For example, in a openapp command module (under nova/cmd):
 
 .. code-block:: python
    :emphasize-lines: 8,9,10
@@ -58,11 +58,11 @@ import sys
 
 from oslo_utils import timeutils
 
-from nova.openstack.common.report.generators import conf as cgen
-from nova.openstack.common.report.generators import process as prgen
-from nova.openstack.common.report.generators import threading as tgen
-from nova.openstack.common.report.generators import version as pgen
-from nova.openstack.common.report import report
+from openapp.openstack.common.report.generators import conf as cgen
+from openapp.openstack.common.report.generators import process as prgen
+from openapp.openstack.common.report.generators import threading as tgen
+from openapp.openstack.common.report.generators import version as pgen
+from openapp.openstack.common.report import report
 
 
 class GuruMeditation(object):

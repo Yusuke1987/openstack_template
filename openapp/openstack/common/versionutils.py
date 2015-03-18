@@ -26,7 +26,7 @@ from oslo_config import cfg
 import pkg_resources
 import six
 
-from nova.openstack.common._i18n import _
+from openapp.openstack.common._i18n import _
 
 
 LOG = logging.getLogger(__name__)

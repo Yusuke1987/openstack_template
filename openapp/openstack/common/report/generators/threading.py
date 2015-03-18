@@ -26,10 +26,10 @@ import threading
 
 import greenlet
 
-from nova.openstack.common.report.models import threading as tm
-from nova.openstack.common.report.models import with_default_views as mwdv
-from nova.openstack.common.report import utils as rutils
-from nova.openstack.common.report.views.text import generic as text_views
+from openapp.openstack.common.report.models import threading as tm
+from openapp.openstack.common.report.models import with_default_views as mwdv
+from openapp.openstack.common.report import utils as rutils
+from openapp.openstack.common.report.views.text import generic as text_views
 
 
 class ThreadReportGenerator(object):

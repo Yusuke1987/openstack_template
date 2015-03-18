@@ -36,8 +36,8 @@ import routes.middleware
 import webob.dec
 import webob.exc
 
-from nova import exception
-from nova.i18n import _, _LE, _LI
+from openapp import exception
+from openapp.i18n import _, _LE, _LI
 
 wsgi_opts = [
     cfg.StrOpt('api_paste_config',

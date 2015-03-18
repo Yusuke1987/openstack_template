@@ -47,8 +47,8 @@ from oslo_utils import importutils
 from oslo_utils import timeutils
 import six
 
-from nova import exception
-from nova.i18n import _, _LE, _LW
+from openapp import exception
+from openapp.i18n import _, _LE, _LW
 
 notify_decorator = 'nova.notifications.notify_decorator'
 
@@ -1000,7 +1000,7 @@ def is_neutron():
         if cls_name == 'nova.network.quantumv2.api.API':
             cls_name = 'nova.network.neutronv2.api.API'
 
-        from nova.network.neutronv2 import api as neutron_api
+        from openapp.network.neutronv2 import api as neutron_api
         _IS_NEUTRON = issubclass(importutils.import_class(cls_name),
                                  neutron_api.API)
     except ImportError:

@@ -27,19 +27,19 @@ from oslo_log import log as logging
 import oslo_messaging as messaging
 from oslo_utils import importutils
 
-from nova import baserpc
-from nova import conductor
-from nova import context
-from nova import debugger
-from nova import exception
-from nova.i18n import _, _LE, _LI, _LW
-from nova.objects import base as objects_base
-from nova.openstack.common import service
-from nova import rpc
-from nova import servicegroup
-from nova import utils
-from nova import version
-from nova import wsgi
+from openapp import baserpc
+from openapp import conductor
+from openapp import context
+from openapp import debugger
+from openapp import exception
+from openapp.i18n import _, _LE, _LI, _LW
+from openapp.objects import base as objects_base
+from openapp.openstack.common import service
+from openapp import rpc
+from openapp import servicegroup
+from openapp import utils
+from openapp import version
+from openapp import wsgi
 
 LOG = logging.getLogger(__name__)
 

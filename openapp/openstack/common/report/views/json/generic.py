@@ -27,7 +27,7 @@ import copy
 
 from oslo_serialization import jsonutils as json
 
-from nova.openstack.common.report import utils as utils
+from openapp.openstack.common.report import utils as utils
 
 
 class BasicKeyValueView(object):

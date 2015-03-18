@@ -14,7 +14,7 @@
 
 from oslo_middleware import request_id
 
-from nova.openstack.common import versionutils
+from openapp.openstack.common import versionutils
 
 
 ENV_REQUEST_ID = 'openstack.request_id'

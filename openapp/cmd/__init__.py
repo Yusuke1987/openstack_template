@@ -15,7 +15,7 @@
 
 import eventlet
 
-from nova import debugger
+from openapp import debugger
 
 if debugger.enabled():
     # turn off thread patching to enable the remote debugger

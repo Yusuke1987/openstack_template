@@ -14,7 +14,7 @@
 
 import pbr.version
 
-from nova.i18n import _LE
+from openapp.i18n import _LE
 
 NOVA_VENDOR = "OpenStack Foundation"
 NOVA_PRODUCT = "OpenStack Nova"

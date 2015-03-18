@@ -30,7 +30,7 @@ import prettytable
 import six
 from six import moves
 
-from nova.openstack.common._i18n import _
+from openapp.openstack.common._i18n import _
 
 
 class MissingArgs(Exception):

@@ -22,7 +22,7 @@ import os
 
 import psutil
 
-from nova.openstack.common.report.models import process as pm
+from openapp.openstack.common.report.models import process as pm
 
 
 class ProcessReportGenerator(object):

@@ -27,13 +27,13 @@ import oslo_messaging as messaging
 from oslo_utils import timeutils
 import six
 
-from nova import context
-from nova import exception
-from nova.i18n import _, _LE
-from nova import objects
-from nova.objects import fields as obj_fields
-from nova.openstack.common import versionutils
-from nova import utils
+from openapp import context
+from openapp import exception
+from openapp.i18n import _, _LE
+from openapp import objects
+from openapp.objects import fields as obj_fields
+from openapp.openstack.common import versionutils
+from openapp import utils
 
 
 LOG = logging.getLogger('object')
@@ -817,7 +817,7 @@ class NovaObjectSerializer(messaging.NoOpSerializer):
     @property
     def conductor(self):
         if not hasattr(self, '_conductor'):
-            from nova import conductor
+            from openapp import conductor
             self._conductor = conductor.API()
         return self._conductor
 

@@ -14,10 +14,10 @@
 
 import copy
 
-from nova.openstack.common.report.models import base as base_model
-from nova.openstack.common.report.views.json import generic as jsonviews
-from nova.openstack.common.report.views.text import generic as textviews
-from nova.openstack.common.report.views.xml import generic as xmlviews
+from openapp.openstack.common.report.models import base as base_model
+from openapp.openstack.common.report.views.json import generic as jsonviews
+from openapp.openstack.common.report.views.text import generic as textviews
+from openapp.openstack.common.report.views.xml import generic as xmlviews
 
 
 class ModelWithDefaultViews(base_model.ReportModel):
