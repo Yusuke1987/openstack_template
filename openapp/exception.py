@@ -31,7 +31,7 @@ from oslo_utils import excutils
 import webob.exc
 
 from openapp.i18n import _, _LE
-from openapp import safe_utils
+#from openapp import safe_utils
 
 LOG = logging.getLogger(__name__)
 

@@ -28,7 +28,7 @@ import oslo_messaging as messaging
 from oslo_utils import importutils
 
 from openapp import baserpc
-from openapp import conductor
+#from openapp import conductor
 from openapp import context
 from openapp import debugger
 from openapp import exception
@@ -56,7 +56,7 @@ service_opts = [
                     ' periodic task scheduler to reduce stampeding.'
                     ' (Disable by setting to 0)'),
     cfg.ListOpt('enabled_apis',
-                default=['ec2', 'osapi_compute', 'metadata'],
+                default=[],
                 help='A list of APIs to enable by default'),
     cfg.ListOpt('enabled_ssl_apis',
                 default=[],
@@ -80,7 +80,7 @@ service_opts = [
                help='Number of workers for OpenStack API service. The default '
                     'will be the number of CPUs available.'),
     cfg.StrOpt('metadata_manager',
-               default='nova.api.manager.MetadataManager',
+               default='openapp.api.manager.MetadataManager',
                help='OpenStack metadata service manager'),
     cfg.StrOpt('metadata_listen',
                default="0.0.0.0",
@@ -92,22 +92,22 @@ service_opts = [
                help='Number of workers for metadata service. The default will '
                     'be the number of CPUs available.'),
     cfg.StrOpt('compute_manager',
-               default='nova.compute.manager.ComputeManager',
+               default='openapp.compute.manager.ComputeManager',
                help='Full class name for the Manager for compute'),
     cfg.StrOpt('console_manager',
-               default='nova.console.manager.ConsoleProxyManager',
+               default='openapp.console.manager.ConsoleProxyManager',
                help='Full class name for the Manager for console proxy'),
     cfg.StrOpt('consoleauth_manager',
-               default='nova.consoleauth.manager.ConsoleAuthManager',
+               default='openapp.consoleauth.manager.ConsoleAuthManager',
                help='Manager for console auth'),
     cfg.StrOpt('cert_manager',
-               default='nova.cert.manager.CertManager',
+               default='openapp.cert.manager.CertManager',
                help='Full class name for the Manager for cert'),
     cfg.StrOpt('network_manager',
-               default='nova.network.manager.VlanManager',
+               default='openapp.network.manager.VlanManager',
                help='Full class name for the Manager for network'),
     cfg.StrOpt('scheduler_manager',
-               default='nova.scheduler.manager.SchedulerManager',
+               default='openapp.scheduler.manager.SchedulerManager',
                help='Full class name for the Manager for scheduler'),
     cfg.IntOpt('service_down_time',
                default=60,
@@ -116,7 +116,7 @@ service_opts = [
 
 CONF = cfg.CONF
 CONF.register_opts(service_opts)
-CONF.import_opt('host', 'nova.netconf')
+CONF.import_opt('host', 'openapp.netconf')
 
 
 class Service(service.Service):
@@ -242,7 +242,7 @@ class Service(service.Service):
 
         :param host: defaults to CONF.host
         :param binary: defaults to basename of executable
-        :param topic: defaults to bin_name - 'nova-' part
+        :param topic: defaults to bin_name - 'openapp-' part
         :param manager: defaults to CONF.<topic>_manager
         :param report_interval: defaults to CONF.report_interval
         :param periodic_enable: defaults to CONF.periodic_enable
@@ -255,10 +255,10 @@ class Service(service.Service):
         if not binary:
             binary = os.path.basename(sys.argv[0])
         if not topic:
-            topic = binary.rpartition('nova-')[2]
+            topic = binary.rpartition('openapp-')[2]
         if not manager:
             manager_cls = ('%s_manager' %
-                           binary.rpartition('nova-')[2])
+                           binary.rpartition('openapp-')[2])
             manager = CONF.get(manager_cls, None)
         if report_interval is None:
             report_interval = CONF.report_interval
@@ -350,6 +350,7 @@ class WSGIService(object):
                     'workers': str(self.workers)})
             raise exception.InvalidInput(msg)
         self.use_ssl = use_ssl
+        logging.Debug(name)
         self.server = wsgi.Server(name,
                                   self.app,
                                   host=self.host,

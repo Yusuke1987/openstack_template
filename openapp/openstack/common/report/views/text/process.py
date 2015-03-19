@@ -18,7 +18,7 @@ This module provides a view for
 visualizing processes in human-readable formm
 """
 
-import nova.openstack.common.report.views.jinja_view as jv
+import openapp.openstack.common.report.views.jinja_view as jv
 
 
 class ProcessView(jv.JinjaView):

@@ -50,7 +50,7 @@ import six
 from openapp import exception
 from openapp.i18n import _, _LE, _LW
 
-notify_decorator = 'nova.notifications.notify_decorator'
+notify_decorator = 'openapp.notifications.notify_decorator'
 
 monkey_patch_opts = [
     cfg.BoolOpt('monkey_patch',
@@ -58,8 +58,8 @@ monkey_patch_opts = [
                 help='Whether to log monkey patching'),
     cfg.ListOpt('monkey_patch_modules',
                 default=[
-                  'nova.api.ec2.cloud:%s' % (notify_decorator),
-                  'nova.compute.api:%s' % (notify_decorator)
+                  'openapp.api.ec2.cloud:%s' % (notify_decorator),
+                  'openapp.compute.api:%s' % (notify_decorator)
                   ],
                 help='List of modules/decorators to monkey patch'),
 ]
@@ -72,7 +72,7 @@ utils_opts = [
                help='Time period to generate instance usages for.  '
                     'Time period must be hour, day, month or year'),
     cfg.StrOpt('rootwrap_config',
-               default="/etc/nova/rootwrap.conf",
+               default="/etc/openapp/rootwrap.conf",
                help='Path to the rootwrap configuration file to use for '
                     'running commands as root'),
     cfg.StrOpt('tempdir',
@@ -97,14 +97,14 @@ workarounds_opts = [
                 default=False,
                 help='This option allows a fallback to sudo for performance '
                      'reasons. For example see '
-                     'https://bugs.launchpad.net/nova/+bug/1415106'),
+                     'https://bugs.launchpad.net/openapp/+bug/1415106'),
     cfg.BoolOpt('disable_libvirt_livesnapshot',
                 default=True,
                 help='When using libvirt 1.2.2 fails live snapshots '
                      'intermittently under load.  This config option provides '
                      'mechanism to disable livesnapshot while this is '
                      'resolved.  See '
-                     'https://bugs.launchpad.net/nova/+bug/1334398'),
+                     'https://bugs.launchpad.net/openapp/+bug/1334398'),
     cfg.BoolOpt('destroy_after_evacuate',
                 default=True,
                 help='Whether to destroy instances on startup when we suspect '
@@ -115,7 +115,7 @@ workarounds_opts = [
 CONF = cfg.CONF
 CONF.register_opts(monkey_patch_opts)
 CONF.register_opts(utils_opts)
-CONF.import_opt('network_api_class', 'nova.network')
+CONF.import_opt('network_api_class', 'openapp.network')
 CONF.register_opts(workarounds_opts, group='workarounds')
 
 LOG = logging.getLogger(__name__)
@@ -131,7 +131,7 @@ TIME_UNITS = {
 
 _IS_NEUTRON = None
 
-synchronized = lockutils.synchronized_with_prefix('nova-')
+synchronized = lockutils.synchronized_with_prefix('openapp-')
 
 SM_IMAGE_PROP_PREFIX = "image_"
 SM_INHERITABLE_KEYS = (
@@ -195,7 +195,7 @@ def _get_root_helper():
     if CONF.workarounds.disable_rootwrap:
         cmd = 'sudo'
     else:
-        cmd = 'sudo nova-rootwrap %s' % CONF.rootwrap_config
+        cmd = 'sudo openapp-rootwrap %s' % CONF.rootwrap_config
     return cmd
 
 
@@ -213,9 +213,9 @@ def trycmd(*args, **kwargs):
     return processutils.trycmd(*args, **kwargs)
 
 
-def novadir():
-    import nova
-    return os.path.abspath(nova.__file__).split('nova/__init__.py')[0]
+def openappdir():
+    import openapp
+    return os.path.abspath(openapp.__file__).split('openapp/__init__.py')[0]
 
 
 def generate_uid(topic, size=8):
@@ -512,10 +512,10 @@ def monkey_patch():
     using CONF.monkey_patch_modules.
     The format is "Module path:Decorator function".
     Example:
-    'nova.api.ec2.cloud:nova.notifications.notify_decorator'
+    'openapp.api.ec2.cloud:openapp.notifications.notify_decorator'
 
     Parameters of the decorator is as follows.
-    (See nova.notifications.notify_decorator)
+    (See openapp.notifications.notify_decorator)
 
     name - name of the function
     function - object of the function
@@ -659,7 +659,7 @@ def generate_mac_address():
     #             conflict with libvirt, so we use the next highest octet
     #             that has the unicast and locally administered bits set
     #             properly: 0xfa.
-    #             Discussion: https://bugs.launchpad.net/nova/+bug/921838
+    #             Discussion: https://bugs.launchpad.net/openapp/+bug/921838
     mac = [0xfa, 0x16, 0x3e,
            random.randint(0x00, 0xff),
            random.randint(0x00, 0xff),
@@ -997,8 +997,8 @@ def is_neutron():
     try:
         # compatibility with Folsom/Grizzly configs
         cls_name = CONF.network_api_class
-        if cls_name == 'nova.network.quantumv2.api.API':
-            cls_name = 'nova.network.neutronv2.api.API'
+        if cls_name == 'openapp.network.quantumv2.api.API':
+            cls_name = 'openapp.network.neutronv2.api.API'
 
         from openapp.network.neutronv2 import api as neutron_api
         _IS_NEUTRON = issubclass(importutils.import_class(cls_name),

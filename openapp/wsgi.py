@@ -42,7 +42,7 @@ from openapp.i18n import _, _LE, _LI
 wsgi_opts = [
     cfg.StrOpt('api_paste_config',
                default="api-paste.ini",
-               help='File name for the paste.deploy config for nova-api'),
+               help='File name for the paste.deploy config for openapp-api'),
     cfg.StrOpt('wsgi_log_format',
             default='%(client_ip)s "%(request_line)s" status: %(status_code)s'
                     ' len: %(body_length)s time: %(wall_seconds).7f',
@@ -104,7 +104,7 @@ class Server(object):
         :param backlog: Maximum number of queued connections.
         :param max_url_len: Maximum length of permitted URLs.
         :returns: None
-        :raises: nova.exception.InvalidInput
+        :raises: openapp.exception.InvalidInput
         """
         # Allow operators to customize http requests max header line size.
         eventlet.wsgi.MAX_HEADER_LINE = CONF.max_header_line
@@ -114,7 +114,7 @@ class Server(object):
         self._protocol = protocol
         self.pool_size = pool_size or self.default_pool_size
         self._pool = eventlet.GreenPool(self.pool_size)
-        self._logger = logging.getLogger("nova.%s.wsgi.server" % self.name)
+        self._logger = logging.getLogger("openapp.%s.wsgi.server" % self.name)
         self._wsgi_logger = loggers.WritableLogger(self._logger)
         self._use_ssl = use_ssl
         self._max_url_len = max_url_len
@@ -292,11 +292,11 @@ class Application(object):
 
             [app:wadl]
             latest_version = 1.3
-            paste.app_factory = nova.api.fancy_api:Wadl.factory
+            paste.app_factory = openapp.api.fancy_api:Wadl.factory
 
         which would result in a call to the `Wadl` class as
 
-            import nova.api.fancy_api
+            import openapp.api.fancy_api
             fancy_api.Wadl(latest_version='1.3')
 
         You could of course re-implement the `factory` method in subclasses,
@@ -364,11 +364,11 @@ class Middleware(Application):
 
             [filter:analytics]
             redis_host = 127.0.0.1
-            paste.filter_factory = nova.api.analytics:Analytics.factory
+            paste.filter_factory = openapp.api.analytics:Analytics.factory
 
         which would result in a call to the `Analytics` class as
 
-            import nova.api.analytics
+            import openapp.api.analytics
             analytics.Analytics(app_from_paste, redis_host='127.0.0.1')
 
         You could of course re-implement the `factory` method in subclasses,
@@ -524,7 +524,7 @@ class Loader(object):
 
         :param name: Name of the application to load.
         :returns: Paste URLMap object wrapping the requested application.
-        :raises: `nova.exception.PasteAppNotFound`
+        :raises: `openapp.exception.PasteAppNotFound`
 
         """
         try:

@@ -30,28 +30,28 @@ from oslo_config import cfg
 import oslo_messaging as messaging
 from oslo_serialization import jsonutils
 
-import nova.context
-import nova.exception
+import openapp.context
+import openapp.exception
 
 CONF = cfg.CONF
 TRANSPORT = None
 NOTIFIER = None
 
 ALLOWED_EXMODS = [
-    nova.exception.__name__,
+    openapp.exception.__name__,
 ]
 EXTRA_EXMODS = []
 
-# NOTE(markmc): The nova.openstack.common.rpc entries are for backwards compat
-# with Havana rpc_backend configuration values. The nova.rpc entries are for
+# NOTE(markmc): The openapp.openstack.common.rpc entries are for backwards compat
+# with Havana rpc_backend configuration values. The openapp.rpc entries are for
 # compat with Essex values.
 TRANSPORT_ALIASES = {
-    'nova.openstack.common.rpc.impl_kombu': 'rabbit',
-    'nova.openstack.common.rpc.impl_qpid': 'qpid',
-    'nova.openstack.common.rpc.impl_zmq': 'zmq',
-    'nova.rpc.impl_kombu': 'rabbit',
-    'nova.rpc.impl_qpid': 'qpid',
-    'nova.rpc.impl_zmq': 'zmq',
+    'openapp.openstack.common.rpc.impl_kombu': 'rabbit',
+    'openapp.openstack.common.rpc.impl_qpid': 'qpid',
+    'openapp.openstack.common.rpc.impl_zmq': 'zmq',
+    'openapp.rpc.impl_kombu': 'rabbit',
+    'openapp.rpc.impl_qpid': 'qpid',
+    'openapp.rpc.impl_zmq': 'zmq',
 }
 
 
@@ -114,7 +114,7 @@ class RequestContextSerializer(messaging.Serializer):
         return context.to_dict()
 
     def deserialize_context(self, context):
-        return nova.context.RequestContext.from_dict(context)
+        return openapp.context.RequestContext.from_dict(context)
 
 
 def get_transport_url(url_str=None):

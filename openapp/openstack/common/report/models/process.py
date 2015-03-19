@@ -18,8 +18,8 @@ This module defines a class representing a process,
 potentially with subprocesses.
 """
 
-import nova.openstack.common.report.models.with_default_views as mwdv
-import nova.openstack.common.report.views.text.process as text_views
+import openapp.openstack.common.report.models.with_default_views as mwdv
+import openapp.openstack.common.report.views.text.process as text_views
 
 
 class ProcessModel(mwdv.ModelWithDefaultViews):
