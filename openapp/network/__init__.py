@@ -19,7 +19,7 @@ from oslo_utils import importutils
 
 _network_opts = [
     oslo_config.cfg.StrOpt('network_api_class',
-                           default='nova.network.api.API',
+                           default='openapp.network.api.API',
                            help='The full class name of the '
                                 'network API class to use'),
 ]

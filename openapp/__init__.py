@@ -15,10 +15,10 @@
 #    under the License.
 
 """
-:mod:`nova` -- Cloud IaaS Platform
+:mod:`openapp` -- Cloud IaaS Platform
 ===================================
 
-.. automodule:: nova
+.. automodule:: openapp
    :platform: Unix
    :synopsis: Infrastructure-as-a-Service Cloud platform.
 """

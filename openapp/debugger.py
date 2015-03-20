@@ -15,7 +15,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-# NOTE(markmc): this is imported before monkey patching in nova.cmd
+# NOTE(markmc): this is imported before monkey patching in openapp.cmd
 # so we avoid extra imports here
 
 import sys
