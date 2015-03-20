@@ -27,7 +27,7 @@ from openapp import version
 
 CONF = cfg.CONF
 
-_DEFAULT_SQL_CONNECTION = 'sqlite:///' + paths.state_path_def('nova.sqlite')
+_DEFAULT_SQL_CONNECTION = 'sqlite:///' + paths.state_path_def('openapp.sqlite')
 
 _DEFAULT_LOG_LEVELS = ['amqp=WARN', 'amqplib=WARN', 'boto=WARN',
                        'qpid=WARN', 'sqlalchemy=WARN', 'suds=INFO',
@@ -47,11 +47,11 @@ def parse_args(argv, default_config_files=None):
     log.set_defaults(_DEFAULT_LOGGING_CONTEXT_FORMAT, _DEFAULT_LOG_LEVELS)
     log.register_options(CONF)
     options.set_defaults(CONF, connection=_DEFAULT_SQL_CONNECTION,
-                         sqlite_db='nova.sqlite')
-    rpc.set_defaults(control_exchange='nova')
+                         sqlite_db='openapp.sqlite')
+    rpc.set_defaults(control_exchange='openapp')
     debugger.register_cli_opts()
     CONF(argv[1:],
-         project='nova',
+         project='openapp',
          version=version.version_string(),
          default_config_files=default_config_files)
     rpc.init(CONF)

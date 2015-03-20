@@ -18,7 +18,7 @@ This module defines the actual OpenStack Guru Meditation
 Report class.
 
 This can be used in the OpenStack command definition files.
-For example, in a openapp command module (under nova/cmd):
+For example, in a openapp command module (under openapp/cmd):
 
 .. code-block:: python
    :emphasize-lines: 8,9,10

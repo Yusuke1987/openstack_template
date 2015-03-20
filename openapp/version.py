@@ -21,7 +21,7 @@ NOVA_PRODUCT = "OpenStack Nova"
 NOVA_PACKAGE = None  # OS distro package version suffix
 
 loaded = False
-version_info = pbr.version.VersionInfo('nova')
+version_info = pbr.version.VersionInfo('openapp')
 version_string = version_info.version_string
 
 

@@ -125,7 +125,7 @@ class NovaObjectMetaclass(type):
         for i, obj in enumerate(cls._obj_classes[obj_name]):
             if cls.VERSION == obj.VERSION:
                 cls._obj_classes[obj_name][i] = cls
-                # Update nova.objects with this newer class.
+                # Update openapp.objects with this newer class.
                 setattr(objects, obj_name, cls)
                 break
             if _vers_tuple(cls) > _vers_tuple(obj):
@@ -133,13 +133,13 @@ class NovaObjectMetaclass(type):
                 cls._obj_classes[obj_name].insert(i, cls)
                 if i == 0:
                     # Later version than we've seen before. Update
-                    # nova.objects.
+                    # openapp.objects.
                     setattr(objects, obj_name, cls)
                 break
         else:
             cls._obj_classes[obj_name].append(cls)
             # Either this is the first time we've seen the object or it's
-            # an older version than anything we'e seen. Update nova.objects
+            # an older version than anything we'e seen. Update openapp.objects
             # only if it's the first time we've seen this object name.
             if not hasattr(objects, obj_name):
                 setattr(objects, obj_name, cls)
@@ -327,8 +327,8 @@ class NovaObject(object):
         self = cls()
         self._context = context
         self.VERSION = objver
-        objdata = primitive['nova_object.data']
-        changes = primitive.get('nova_object.changes', [])
+        objdata = primitive['openapp_object.data']
+        changes = primitive.get('openapp_object.changes', [])
         for name, field in self.fields.items():
             if name in objdata:
                 setattr(self, name, field.from_primitive(self, name,
@@ -339,14 +339,14 @@ class NovaObject(object):
     @classmethod
     def obj_from_primitive(cls, primitive, context=None):
         """Object field-by-field hydration."""
-        if primitive['nova_object.namespace'] != 'nova':
+        if primitive['openapp_object.namespace'] != 'openapp':
             # NOTE(danms): We don't do anything with this now, but it's
             # there for "the future"
             raise exception.UnsupportedObjectError(
-                objtype='%s.%s' % (primitive['nova_object.namespace'],
-                                   primitive['nova_object.name']))
-        objname = primitive['nova_object.name']
-        objver = primitive['nova_object.version']
+                objtype='%s.%s' % (primitive['openapp_object.namespace'],
+                                   primitive['openapp_object.name']))
+        objname = primitive['openapp_object.name']
+        objver = primitive['openapp_object.version']
         objclass = cls.obj_class_from_name(objname, objver)
         return objclass._obj_from_primitive(context, objver, primitive)
 
@@ -428,17 +428,17 @@ class NovaObject(object):
             if not obj:
                 return
             if isinstance(obj, NovaObject):
-                if to_version != primitive[field]['nova_object.version']:
+                if to_version != primitive[field]['openapp_object.version']:
                     obj.obj_make_compatible(
-                        primitive[field]['nova_object.data'],
+                        primitive[field]['openapp_object.data'],
                         to_version)
-                primitive[field]['nova_object.version'] = to_version
+                primitive[field]['openapp_object.version'] = to_version
             elif isinstance(obj, list):
                 for i, element in enumerate(obj):
                     element.obj_make_compatible(
-                        primitive[field][i]['nova_object.data'],
+                        primitive[field][i]['openapp_object.data'],
                         to_version)
-                    primitive[field][i]['nova_object.version'] = to_version
+                    primitive[field][i]['openapp_object.version'] = to_version
 
         child_version = self.obj_calculate_child_version(target_version, field)
         if child_version is None:
@@ -469,7 +469,7 @@ class NovaObject(object):
         :param:primitive: The result of self.obj_to_primitive()
         :param:target_version: The version string requested by the recipient
         of the object
-        :raises: nova.exception.UnsupportedObjectError if conversion
+        :raises: openapp.exception.UnsupportedObjectError if conversion
         is not possible for some reason
         """
         for key, field in self.fields.items():
@@ -498,12 +498,12 @@ class NovaObject(object):
                                                      getattr(self, name))
         if target_version:
             self.obj_make_compatible(primitive, target_version)
-        obj = {'nova_object.name': self.obj_name(),
-               'nova_object.namespace': 'nova',
-               'nova_object.version': target_version or self.VERSION,
-               'nova_object.data': primitive}
+        obj = {'openapp_object.name': self.obj_name(),
+               'openapp_object.namespace': 'openapp',
+               'openapp_object.version': target_version or self.VERSION,
+               'openapp_object.data': primitive}
         if self.obj_what_changed():
-            obj['nova_object.changes'] = list(self.obj_what_changed())
+            obj['openapp_object.changes'] = list(self.obj_what_changed())
         return obj
 
     def obj_set_defaults(self, *attrs):
@@ -614,7 +614,7 @@ class NovaObject(object):
     def obj_fields(self):
         return self.fields.keys() + self.obj_extra_fields
 
-    # NOTE(danms): This is nova-specific, so don't copy this to o.vo
+    # NOTE(danms): This is openapp-specific, so don't copy this to o.vo
     @contextlib.contextmanager
     def obj_alternate_context(self, context):
         original_context = self._context
@@ -793,9 +793,9 @@ class ObjectListBase(object):
         child_target_version = self.child_versions.get(target_version, '1.0')
         for index, item in enumerate(self.objects):
             self.objects[index].obj_make_compatible(
-                primitives[index]['nova_object.data'],
+                primitives[index]['openapp_object.data'],
                 child_target_version)
-            primitives[index]['nova_object.version'] = child_target_version
+            primitives[index]['openapp_object.version'] = child_target_version
 
     def obj_what_changed(self):
         changes = set(self._changed_fields)
@@ -825,11 +825,11 @@ class NovaObjectSerializer(messaging.NoOpSerializer):
         try:
             objinst = NovaObject.obj_from_primitive(objprim, context=context)
         except exception.IncompatibleObjectVersion as e:
-            objver = objprim['nova_object.version']
+            objver = objprim['openapp_object.version']
             if objver.count('.') == 2:
                 # NOTE(danms): For our purposes, the .z part of the version
                 # should be safe to accept without requiring a backport
-                objprim['nova_object.version'] = \
+                objprim['openapp_object.version'] = \
                     '.'.join(objver.split('.')[:2])
                 return self._process_object(context, objprim)
             objinst = self.conductor.object_backport(context, objprim,
@@ -868,7 +868,7 @@ class NovaObjectSerializer(messaging.NoOpSerializer):
         return entity
 
     def deserialize_entity(self, context, entity):
-        if isinstance(entity, dict) and 'nova_object.name' in entity:
+        if isinstance(entity, dict) and 'openapp_object.name' in entity:
             entity = self._process_object(context, entity)
         elif isinstance(entity, (tuple, list, set, dict)):
             entity = self._process_iterable(context, self.deserialize_entity,

@@ -350,7 +350,6 @@ class WSGIService(object):
                     'workers': str(self.workers)})
             raise exception.InvalidInput(msg)
         self.use_ssl = use_ssl
-        logging.Debug(name)
         self.server = wsgi.Server(name,
                                   self.app,
                                   host=self.host,

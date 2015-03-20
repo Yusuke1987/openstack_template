@@ -610,7 +610,7 @@ class PreserveEphemeralNotSupported(Invalid):
 
 # NOTE(jruzicka): ImageNotFound is not a valid EC2 error code.
 class ImageNotFoundEC2(ImageNotFound):
-    msg_fmt = _("Image %(image_id)s could not be found. The nova EC2 API "
+    msg_fmt = _("Image %(image_id)s could not be found. The openapp EC2 API "
                 "assigns image ids dynamically when they are listed for the "
                 "first time. Have you listed image ids since adding this "
                 "image?")
@@ -1253,7 +1253,7 @@ class QuotaError(NovaException):
     ec2_code = 'ResourceLimitExceeded'
     msg_fmt = _("Quota exceeded: code=%(code)s")
     # NOTE(cyeoh): 413 should only be used for the ec2 API
-    # The error status code for out of quota for the nova api should be
+    # The error status code for out of quota for the openapp api should be
     # 403 Forbidden.
     code = 413
     headers = {'Retry-After': 0}

@@ -16,8 +16,8 @@
 '''
 find_unused_options.py
 
-Compare the nova.conf file with the nova.conf.sample file to find any unused
-options or default values in nova.conf
+Compare the openapp.conf file with the openapp.conf.sample file to find any unused
+options or default values in openapp.conf
 '''
 
 from __future__ import print_function
@@ -56,17 +56,17 @@ class PropertyCollecter(iniparser.BaseParser):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='''Compare the nova.conf
-    file with the nova.conf.sample file to find any unused options or
-    default values in nova.conf''')
+    parser = argparse.ArgumentParser(description='''Compare the openapp.conf
+    file with the openapp.conf.sample file to find any unused options or
+    default values in openapp.conf''')
 
     parser.add_argument('-c', action='store',
-                        default='/etc/nova/nova.conf',
-                        help='path to nova.conf\
-                        (defaults to /etc/nova/nova.conf)')
-    parser.add_argument('-s', default='./etc/nova/nova.conf.sample',
-                        help='path to nova.conf.sample\
-                        (defaults to ./etc/nova/nova.conf.sample')
+                        default='/etc/openapp/openapp.conf',
+                        help='path to openapp.conf\
+                        (defaults to /etc/openapp/openapp.conf)')
+    parser.add_argument('-s', default='./etc/openapp/openapp.conf.sample',
+                        help='path to openapp.conf.sample\
+                        (defaults to ./etc/openapp/openapp.conf.sample')
     options = parser.parse_args()
 
     conf_file_options = PropertyCollecter.collect_properties(open(options.c))

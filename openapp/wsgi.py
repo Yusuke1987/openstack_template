@@ -509,7 +509,6 @@ class Loader(object):
 
         """
         self.config_path = None
-
         config_path = config_path or CONF.api_paste_config
         if not os.path.isabs(config_path):
             self.config_path = CONF.find_file(config_path)
