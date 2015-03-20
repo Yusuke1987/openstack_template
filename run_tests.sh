@@ -115,7 +115,7 @@ function run_tests {
     if [ "$testropts" = "" ] && [ "$testrargs" = "" ]; then
       # Default to running all tests if specific test is not
       # provided.
-      testrargs="discover ./nova/tests/unit"
+      testrargs="discover ./openapp/tests/unit"
     fi
     ${wrapper} python -m testtools.run $testropts $testrargs
 
@@ -135,7 +135,7 @@ function run_tests {
   set +e
   testrargs=`echo "$testrargs" | sed -e's/^\s*\(.*\)\s*$/\1/'`
   TESTRTESTS="$TESTRTESTS --testr-args='--subunit --concurrency $concurrency $testropts $testrargs'"
-  if [ setup.cfg -nt nova.egg-info/entry_points.txt ]
+  if [ setup.cfg -nt openapp.egg-info/entry_points.txt ]
   then
     ${wrapper} python setup.py egg_info
   fi
@@ -157,7 +157,7 @@ function run_tests {
     echo "Generating coverage report in covhtml/"
     # Don't compute coverage for common code, which is tested elsewhere
     ${wrapper} coverage combine
-    ${wrapper} coverage html --include='nova/*' --omit='nova/openstack/common/*' -d covhtml -i
+    ${wrapper} coverage html --include='openapp/*' --omit='openapp/openstack/common/*' -d covhtml -i
   fi
 
   return $RESULT
@@ -229,7 +229,7 @@ fi
 if [ $just_pep8_changed -eq 1 ]; then
     # NOTE(gilliard) We want use flake8 to check the entirety of every file that has
     # a change in it. Unfortunately the --filenames argument to flake8 only accepts
-    # file *names* and there are no files named (eg) "nova/compute/manager.py".  The
+    # file *names* and there are no files named (eg) "openapp/compute/manager.py".  The
     # --diff argument behaves surprisingly as well, because although you feed it a
     # diff, it actually checks the file on disk anyway.
     files=$(git diff --name-only HEAD~1 | tr '\n' ' ')
