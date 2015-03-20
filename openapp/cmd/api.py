@@ -47,6 +47,7 @@ def main():
 
     launcher = service.process_launcher()
     for api in CONF.enabled_apis:
+        print api
         should_use_ssl = api in CONF.enabled_ssl_apis
         if api == 'ec2':
             server = service.WSGIService(api, use_ssl=should_use_ssl,
