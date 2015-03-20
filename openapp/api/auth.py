@@ -3,7 +3,7 @@ from webob import exc
  
 @wsgify.middleware
 def auth_filter(request, app):
-    if request.headers.get('X-Auth-Token') != 'open-sesame':
+    if request.headers.get('X-Auth-Token') != 'test-token':
         return exc.HTTPForbidden()
     return app(request)
  
