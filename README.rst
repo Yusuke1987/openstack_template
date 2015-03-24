@@ -1,7 +1,8 @@
 OpenStack Template README
 =====================
 
-## Introduction
+Introduction
+--------
 This template has been made based on Openstack Nova
 https://github.com/openstack/nova
 
