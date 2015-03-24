@@ -1,8 +1,8 @@
-This generate_sample.sh tool is used to generate etc/nova/nova.conf.sample
+This generate_sample.sh tool is used to generate etc/openapp/openapp.conf.sample
 
 Run it from the top-level working directory i.e.
 
-  $> ./tools/config/generate_sample.sh -b ./ -p nova -o etc/nova
+  $> ./tools/config/generate_sample.sh -b ./ -p openapp -o etc/openapp
 
 Watch out for warnings about modules like libvirt, qpid and zmq not
 being found - these warnings are significant because they result
@@ -10,8 +10,8 @@ in options not appearing in the generated config file.
 
 
 The analyze_opts.py tool is used to find options which appear in
-/etc/nova/nova.conf but not in etc/nova/nova.conf.sample
-This helps identify options in the nova.conf file which are not used by nova.
+/etc/openapp/openapp.conf but not in etc/openapp/openapp.conf.sample
+This helps identify options in the openapp.conf file which are not used by openapp.
 The tool also identifies any options which are set to the default value.
 
 Run it from the top-level working directory i.e.
