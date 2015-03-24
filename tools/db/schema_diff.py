@@ -49,7 +49,7 @@ import os
 import subprocess
 import sys
 
-from nova.i18n import _
+from openapp.i18n import _
 
 
 # Dump
@@ -127,7 +127,7 @@ def _get_db_driver_class(db_url):
 # Migrate
 
 
-MIGRATE_REPO = os.path.join(os.getcwd(), "nova/db/sqlalchemy/migrate_repo")
+MIGRATE_REPO = os.path.join(os.getcwd(), "openapp/db/sqlalchemy/migrate_repo")
 
 
 def _migrate(db_url, migration_version):
