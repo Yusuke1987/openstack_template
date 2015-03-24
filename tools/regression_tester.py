@@ -68,11 +68,11 @@ def main():
     test_works = False
 
     # run new tests with old code
-    run("git checkout HEAD^ nova")
-    run("git checkout HEAD nova/tests")
+    run("git checkout HEAD^ openapp")
+    run("git checkout HEAD openapp/tests")
 
     # identify which tests have changed
-    tests = run("git whatchanged --format=oneline -1 | grep \"nova/tests\" "
+    tests = run("git whatchanged --format=oneline -1 | grep \"openapp/tests\" "
                 "| cut -f2").split()
     test_list = []
     for test in tests:
@@ -89,7 +89,7 @@ def main():
             test_works = True
 
     # cleanup
-    run("git checkout HEAD nova")
+    run("git checkout HEAD openapp")
     if options.review:
         new_branch = run("git status | head -1 | cut -d ' ' -f 4")
         run("git checkout %s" % original_branch)
