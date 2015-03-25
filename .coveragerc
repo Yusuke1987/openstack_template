@@ -1,7 +1,7 @@
 [run]
 branch = True
-source = nova
-omit = nova/tests/*,nova/openstack/*
+source = openapp
+omit = openapp/tests/*,openapp/openstack/*
 
 [report]
 ignore-errors = True
