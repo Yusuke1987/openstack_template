@@ -28,6 +28,10 @@ Quickstart
 Install sample APP::
 
   $ python setup.py install
+
+Copy configuration::
+
+  $ cp -rp etc/openapp /etc/
   
 Start sample APP::
 
