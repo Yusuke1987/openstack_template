@@ -35,7 +35,7 @@ Start sample APP::
 
 API Examples using Curl::
 
-  $ curl -H "X-Auth-Token:test-token"  http://127.0.0.1:8776/template
+  $ curl -H "X-Auth-Token:test-token"  http://127.0.0.1:8773/template
   Sample API Test Return OK
 
 Running the tests
